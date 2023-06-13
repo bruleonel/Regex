@@ -87,3 +87,51 @@ public Response listaDeRestaurantes(@Valid User user) {
 ````
 ````js
 
+## word boundary
+
+Considere o seguinte texto:
+
+````js
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+````
+Usando a expressão regular \bCaused by:.+$, a correspondência ocorrerá apenas se "Caused by:" estiver separado por limites de palavras. Vamos aplicar a regex no exemplo: 
+
+````js
+import re
+
+texto = "Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure"
+
+padrao = r"\bCaused by:.+$"
+correspondencia = re.search(padrao, texto)
+
+if correspondencia:
+    print(correspondencia.group())
+````
+A saída será:
+
+````js
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+````
+
+A regex encontrou uma correspondência, pois "Caused by:" está separado por um limite de palavra no início da linha.
+Agora, se removermos o delimitador de palavra \b da expressão regular, a correspondência ocorrerá independentemente dos limites de palavras. Veja o exemplo:
+
+````js
+import re
+
+texto = "Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure"
+
+padrao = r"Caused by:.+$"
+correspondencia = re.search(padrao, texto)
+
+if correspondencia:
+    print(correspondencia.group())
+
+````
+A saída será a mesma:
+
+````js
+Caused by: com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+
+````
+
